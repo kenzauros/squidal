@@ -60,14 +60,14 @@ f = open('sample/access.log', 'r')
 n = 0
 start = time.time()
 for i, row in enumerate(f):
-    n += 1
     m = regex.match(row)
     if m:
         for c in fmt['codes']:
             print(c['key'], ':', m.group(c['key']))
         print('-' * 40)
-    if i == 10:
+        n += 1
+    if n == 100:
         break
 elapsed = time.time() - start
-print('Elapsed: {0:.3f} s ({1:.0f} ms/record)'.format(elapsed, elapsed * 1000 / n))
+print('Elapsed: {0:.3f} s / {1} records ({2:.0f} ms/record)'.format(elapsed, n, elapsed * 1000 / n))
 f.close()
