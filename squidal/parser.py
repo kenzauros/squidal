@@ -45,6 +45,8 @@ class SquidLogParser:
         ret['fullcode'] = (m.group(5) or '') + ret['code']
         ret['section'] = m.group(5) and m.group(5)[0:-2]
         ret['key'] = self.__codemap[ret['fullcode']]
+        if ret['argument']:
+            ret['key'] += '_' + ret['argument'].replace('-', '')
         return ret
 
     def __replaceLogFormatCode(self, m):
@@ -63,7 +65,7 @@ class SquidLogParser:
         pattern = self.__logFormatCodeRegex.sub(lambda m: self.__replaceLogFormatCode(m), logformat)
         pattern = self.__regexEscapeRegex.sub(lambda m: '\\' + m.group(0), pattern)
         pattern = self.__whitespaceEscapeRegex.sub('\s+', pattern) # accepts multiple spaces
-        pattern = self.__keyReplaceRegex.sub(lambda m: '(?P<' + m.group(1) + '>[^\s]*?)', pattern)
+        pattern = self.__keyReplaceRegex.sub(lambda m: '(?P<' + m.group(1) + '>.*?)', pattern)
         iterator = self.__logFormatCodeRegex.finditer(logformat)
         codes = list(map(lambda x: self.__translateLogFormatCode(x), iterator))
         self.keys = list(map(lambda x: x['key'], codes))
