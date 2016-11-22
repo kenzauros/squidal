@@ -12,7 +12,7 @@ class SquidLogParser:
     KEY_ESCAPE = '_____'
 
     # Class variables
-    __logFormatCodeRegex = re.compile(r'%(["\[\'#])?(-)?([0-9\.]+)?({.+?})?([%a-zA-Z]+::)?([><a-zA-Z_]+)')
+    __logFormatCodeRegex = re.compile(r'%(["\[\'#\/])?(-)?([0-9\.]+)?({.+?})?([%a-zA-Z]+::)?([><a-zA-Z_]+)')
     __regexEscapeRegex = re.compile(r'([\\\*\+\.\?\{\}\(\)\[\]\^\$\-\|\/])')
     __whitespaceEscapeRegex = re.compile(r'([ ])')
     __keyReplaceRegex = re.compile(KEY_ESCAPE + r'(.*?)' + KEY_ESCAPE)
