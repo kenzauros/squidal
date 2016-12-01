@@ -64,7 +64,7 @@ class SquidLogParser:
         self.logformat = logformat
         pattern = self.__logFormatCodeRegex.sub(lambda m: self.__replaceLogFormatCode(m), logformat)
         pattern = self.__regexEscapeRegex.sub(lambda m: '\\' + m.group(0), pattern)
-        pattern = self.__whitespaceEscapeRegex.sub('\s+', pattern) # accepts multiple spaces
+        pattern = self.__whitespaceEscapeRegex.sub(r'\\s+', pattern) # accepts multiple spaces
         pattern = self.__keyReplaceRegex.sub(lambda m: '(?P<' + m.group(1) + '>.*?)', pattern)
         iterator = self.__logFormatCodeRegex.finditer(logformat)
         codes = list(map(lambda x: self.__translateLogFormatCode(x), iterator))
