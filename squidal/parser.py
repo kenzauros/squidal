@@ -8,7 +8,7 @@ class SquidLogParser:
     '''Read values from Squid log file.'''
 
     # Constants
-    FORMATCODES_DIR = 'formatcodes'
+    FORMATCODES_DIR = os.path.join(os.path.dirname(__file__), '../formatcodes')
     KEY_ESCAPE = '_____'
 
     # Class variables
